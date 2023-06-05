@@ -11,7 +11,7 @@ contract Q2ETest is Test {
         // create a question
         string memory question = "2 * 2 = ";
         string memory answer = "4";
-        bytes32 salt = bytes32("69420");
+        bytes32 salt = bytes32("6942069");
         bytes32 hashedAnswer = keccak256(abi.encodePacked(salt, answer));
         emit log_bytes32(hashedAnswer);
     }
