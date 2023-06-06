@@ -21,11 +21,23 @@ contract Q2ETest is Test {
         emit log(game.question());
     }
 
-    function testtrue() public {
+    function testPass() public {
         assertTrue(true);
     }
 
-    function testQuizFail() public{
+    function testFail() public{
         game.guess("1");
     }
+
+    function test_QuizPass() public{
+        uint256 beginBalance = address(this).balance;
+        vm.deal(address(game), 1_000 ether);
+        game.guess("4");
+        assertEq(address(this).balance, beginBalance + 1_000 ether);
+    }
+
+    fallback() external payable{}
+    receive() external payable{}
+
+
 }

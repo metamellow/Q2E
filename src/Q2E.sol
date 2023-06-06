@@ -13,4 +13,11 @@ contract Q2E {
         hashedAnswer = _hashedAnswer;
     }
 
+    function guess(string calldata answer) public{
+        require(keccak256(abi.encodePacked(salt, answer)) == hashedAnswer);
+        if(address(this).balance > 0){
+            payable(msg.sender).transfer(address(this).balance);
+        }
+    }
+
 }
