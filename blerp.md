@@ -3,7 +3,7 @@
 /* -.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-. */
 
 # TUTORIAL
-- https://youtu.be/niqxn57vx9k?t=1253 
+- https://youtu.be/niqxn57vx9k?t=1607
 
 # TO DO
 - add a payment function to create passive revenue
