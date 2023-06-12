@@ -1,14 +1,3 @@
 [submodule "lib/forge-std"]
 	path = lib/forge-std
 	url = https://github.com/foundry-rs/forge-std
-[submodule "./my-app"]
-	path = .DS_Store
-	path = node_modules
-	path = /build
-	path = /.svelte-kit
-	path = /package
-	path = .env
-	path = .env.*
-	path = !.env.example
-	path = vite.config.js.timestamp-*
-	path = vite.config.ts.timestamp-*
