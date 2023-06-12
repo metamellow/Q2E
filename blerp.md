@@ -5,6 +5,7 @@
 # TUTORIAL
 - https://youtu.be/niqxn57vx9k?t=4160
 - 0x7905AE06e9Ac899C70053b7AC6BA546f38558D68 [Goerli]
+- "npm run dev -- --open"
 
 # TO DO
 - add a payment function to create passive revenue
