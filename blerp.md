@@ -3,9 +3,12 @@
 /* -.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-. */
 
 # TUTORIAL
-- https://youtu.be/niqxn57vx9k?t=4160
-- 0x7905AE06e9Ac899C70053b7AC6BA546f38558D68 [Goerli]
-- "npm run dev -- --open"
+- https://blog.chain.link/how-to-build-a-crypto-game/#connecting_your_wallet 
+- in "cd my-app", run "npm run dev -- --open"
+- if you see this then the answer given is wrong (could be related to the 'salt')
+    >>
+        index.ts:261 Uncaught (in promise) Error: cannot estimate gas; transaction may fail or may require manual gas limit [ See: https://links.ethers.org/v5-errors-UNPREDICTABLE_GAS_LIMIT ] (error={"code":-32000,"message":"execution reverted"}, method="estimateGas", transaction={"from":"0x4d28B3b1A14c90F859675e9c9bFc0852edDd1574","to":"0x0e413e78B95b081cc53a7C811680453B264250D3","data":"0x4eee59b3000000000000000000000000000000000000000000000000000000000000002000000000000000000000000000000000000000000000000000000000000000023432000000000000000000000000000000000000000000000000000000000000","accessList":null}, code=UNPREDICTABLE_GAS_LIMIT, version=providers/5.6.3)
+
 
 # TO DO
 - add a payment function to create passive revenue
