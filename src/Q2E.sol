@@ -41,7 +41,7 @@ contract Q2E {
     function currentPrice() public view returns(uint256){
         uint price = (
             IERC20(erc20contract).balanceOf(address(this)) +
-            (IERC20(erc20contract).balanceOf(address(this)) * erc20Fee)
+            (IERC20(erc20contract).balanceOf(address(this)) * erc20Fee / 10000)
         );
 
 
