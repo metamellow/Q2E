@@ -11,13 +11,9 @@
 
 
 # TO DO
-- add a payment function to create passive revenue
+- How could I use this setup to make a roulette game?
     - they provide payment and submit answer in same txn
     - if correct answer then reward, if not then end
-- create a list of stuff
-    - target audience + holding location
-    - list of Questions + Answers
-- How could I use this setup to make a roulette game?
     - There could be a random number chosen and the first one to input the correct number wins it!
     - I would have to turn OFF the require statement so that users CAN try with wrong password (winning number)
     - I would profit from the tax, while id also need to stock the contract to begin with
