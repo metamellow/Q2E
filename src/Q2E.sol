@@ -56,7 +56,7 @@ contract Q2E {
         bool success = IERC20(erc20contract).transferFrom(msg.sender, address(this), erc20Price);
         require(success == true, "transfer failed!");
 
-        // convert FEE to MATIC && send to taxWallet
+        // convert FEE to MATIC && send to taxWallet90perc and devWallet10perc
         
         // emit the guess so that it can be recorded on the frontend (and help future guesses)
         emit AnswerGuessed(answer);
