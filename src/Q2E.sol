@@ -44,21 +44,7 @@ contract Q2E {
             (IERC20(erc20contract).balanceOf(address(this)) * erc20Fee / 10000)
         );
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        
+// this is not right, it should be taking the basePrice and then exponentially growing it which could require a counter OVER the use of the balance     
         return price;
     }
     
