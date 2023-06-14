@@ -8,6 +8,7 @@ pragma solidity ^0.8.13;
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 
 contract Q2E {
+// might want to move this into the constructor? for privacy--- also need to make a note in the JS to try obfuscate it
     bytes32 private salt = bytes32("changeThisBeforeDeploying"); // --- CHANGE THIS BEFORE DEPOLY ---
     bytes32 public hashedAnswer;
     string public question;
