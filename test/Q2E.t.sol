@@ -12,7 +12,7 @@ contract Q2ETest is Test {
         string memory question = "2 * 2 = ";
         string memory answer = "4";
         // salt is needed bc need to hash answer provided
-        bytes32 salt = bytes32("6942069");
+        bytes32 salt = bytes32("changeThisBeforeDeploying");
         bytes32 hashedAnswer = keccak256(abi.encodePacked(salt, answer));
         emit log_bytes32(hashedAnswer);
 
