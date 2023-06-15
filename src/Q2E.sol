@@ -1,5 +1,6 @@
 // move all of this stuff into the sandbox, AND THEN also set up a placeholderr on BONworld for the front end
 // it would be smarter to approve and collect MATIC and auto convert the remained after tax to BON, and then give that BON as a reward -- this method would be best if the front end provided price quotes for how much the BON reward is worth in MATIC
+// actually this also isn't great BC the winner would probably just dump the reward for MATIC after, so BEST would be let the user chose their payment form, so that it all somewhat averages out hopefully but the tax is kept in MATIC
 
 
 
