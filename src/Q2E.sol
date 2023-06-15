@@ -1,3 +1,13 @@
+// move all of this stuff into the sandbox, AND THEN also set up a placeholderr on BONworld for the front end
+// it would be smarter to approve and collect MATIC and auto convert the remained after tax to BON, and then give that BON as a reward -- this method would be best if the front end provided price quotes for how much the BON reward is worth in MATIC
+
+
+
+
+
+
+
+
 // SPDX-License-Identifier: GNU
 pragma solidity ^0.8.13;
 
