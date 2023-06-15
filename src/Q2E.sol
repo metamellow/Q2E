@@ -17,6 +17,7 @@ contract Q2E {
     uint256 public erc20Base;
     uint256 public erc20Fee;
     uint256 public counter;
+    
 
     event QuizFunded(uint amount);
     event AnswerGuessed(string guess);
