@@ -35,6 +35,8 @@ contract Q2E {
     event AnswerGuessed(string guess);
     event AnswerCorrect(uint winnings);
 
+// maybe have two vars above to specify the main the two tokens and then use those in theuniswap incase the LP order is not what is expected
+
     constructor(
         string memory _question, 
         bytes32 _hashedAnswer, 
