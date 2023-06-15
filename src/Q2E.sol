@@ -6,17 +6,17 @@ pragma solidity ^0.8.13;
 /* -.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-. */
 
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
+import "@uniswap/v2-core/contracts/interfaces/IUniswapV2Router.sol";
 
 contract Q2E {
-// might want to move this into the constructor? for privacy--- also need to make a note in the JS to try obfuscate it
     bytes32 private salt = bytes32("changeThisBeforeDeploying"); // --- CHANGE THIS BEFORE DEPOLY ---
     bytes32 public hashedAnswer;
     string public question;
     address public erc20contract;
-    address public taxWallet;
-    uint256 public erc20BasePrice;
+    address public taxW;
+    uint256 public erc20Base;
     uint256 public erc20Fee;
-    uint256 public guessCounter;
+    uint256 public counter;
 
     event QuizFunded(uint amount);
     event AnswerGuessed(string guess);
@@ -26,38 +26,38 @@ contract Q2E {
         string memory _question, 
         bytes32 _hashedAnswer, 
         address _erc20contract, 
-        address _taxWallet, 
-        uint _erc20BasePrice, 
+        address _taxW, 
+        uint _erc20Base, 
         uint _erc20Fee
         ){
         question = _question; // "xx?"
         hashedAnswer = _hashedAnswer; // "xx"
-        erc20contract = _erc20contract; // 0x47E53f0Ddf71210F2C45dc832732aA188F78AA4f // BON/WMATIC
-        taxWallet = _taxWallet; // 0xb1a23cD1dcB4F07C9d766f2776CAa81d33fa0Ede // bonDevs
-        erc20BasePrice = _erc20BasePrice; // 3000000000000000000000 // 3,000 tokens
-        erc20Fee = _erc20Fee; // 1000 // 10% of erc20 price (1,000/10,000)
+        erc20contract = _erc20contract; // "0x47E53f0Ddf71210F2C45dc832732aA188F78AA4f" BON/WMATIC
+        taxW = _taxW; // "0xb1a23cD1dcB4F07C9d766f2776CAa81d33fa0Ede" bonDevs
+        erc20Base = _erc20Base; // "750000000000000000000" 750 tokens ~$4
+        erc20Fee = _erc20Fee; // "1000" 10% of erc20 price (1,000/10,000)
+        counter = 1;
     }
 
     function currentPrice() public view returns(uint256){
-        uint price = (
-            IERC20(erc20contract).balanceOf(address(this)) +
-            (IERC20(erc20contract).balanceOf(address(this)) * erc20Fee / 10000)
-        );
-
-// this is not right, it should be taking the basePrice and then exponentially growing it which could require a counter OVER the use of the balance     
+        uint price = (counter * erc20Base);
         return price;
     }
     
     function guess(string calldata answer) public{
-        // require erc20Price transfer
-        // all users must APPROVE staking contract to use erc20 before v-this-v can work
         uint256 price = currentPrice();
 
-        bool success = IERC20(erc20contract).transferFrom(msg.sender, address(this), erc20Price);
-        require(success == true, "transfer failed!");
+        // all USERS must APPROVE lotto contract to use erc20 before v-this-v can work
+        bool paymentTxn = IERC20(erc20contract).transferFrom(msg.sender, address(this), price);
+        require(paymentTxn == true, "transfer failed!");
 
-        // convert FEE to MATIC && send to taxWallet90perc and devWallet10perc
-        
+        uint256 tax = price * erc20Fee / 10000;
+        uint256 payment = price - tax;
+
+        // DEVS must APPROVE uniswap to use contracts erc20 before v-this-v can work
+        bool taxTxn = IERC20(erc20contract).transferFrom(msg.sender, taxW, tax);
+        require(taxTxn == true, "transfer failed!");
+
         // emit the guess so that it can be recorded on the frontend (and help future guesses)
         emit AnswerGuessed(answer);
         emit QuizFunded(IERC20(erc20contract).balanceOf(msg.sender));
@@ -67,6 +67,10 @@ contract Q2E {
             payable(msg.sender).transfer(address(this).balance);
             emit AnswerCorrect(winnings);
         }
+    }
+
+    function bonFundsConvert() public{
+
     }
 
     fallback() external payable{

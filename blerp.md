@@ -18,3 +18,5 @@
     - I would have to turn OFF the require statement so that users CAN try with wrong password (winning number)
     - I would profit from the tax, while id also need to stock the contract to begin with
     - The cost could double every time? Or something like that
+- Frontend
+    - will need to try to obfiscate the salt on question enter
