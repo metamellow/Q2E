@@ -45,6 +45,9 @@ contract Q2E {
         return price;
     }
     
+// I should actually move the uniswap exchange out of the guess and just call it from inside guess() --- also I think I saw this in the lotto contract that Guu sent
+
+
     function guess(string calldata answer) public{
         uint256 price = currentPrice();
 
