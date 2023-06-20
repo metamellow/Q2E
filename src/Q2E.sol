@@ -3,12 +3,7 @@
 // actually this also isn't great BC the winner would probably just dump the reward for MATIC after, so BEST would be let the user chose their payment form, so that it all somewhat averages out hopefully but the tax is kept in MATIC
 // the guess would just call one of two uniswap functions that are inverses, so then what's held in the contract always is the same (rewards in BON, tax in MATIC)
 // final choice-- users pay in matic, tax is taken, remainder is uniswapped to BON and held in contract as reward--- this will create steady upward value and then a drop on rewards sale, but volume is volume
-
-
-
-
-
-
+// - https://blog.chain.link/how-to-build-a-crypto-game/#connecting_your_wallet  
 
 // SPDX-License-Identifier: GNU
 pragma solidity ^0.8.13;
@@ -42,8 +37,8 @@ contract Q2E {
         bytes32 _hashedAnswer, 
         address _erc20contract, 
         address _erc20LP;
-        uint _erc20Base, 
-        uint _erc20Fee
+        uint256 _erc20Base, 
+        uint256 _erc20Fee
         ){
         question = _question; // "xx?"
         hashedAnswer = _hashedAnswer; // "xx"
@@ -59,26 +54,28 @@ contract Q2E {
         return price;
     }
     
-// I should actually move the uniswap exchange out of the guess and just call it from inside guess() --- also I think I saw this in the lotto contract that Guu sent
-
-
-    function guess(string calldata answer) public{
-        uint256 price = currentPrice();
-
-        // all USERS must APPROVE lotto contract to use erc20 before v-this-v can work
-        require(IERC20(erc20contract).transferFrom(msg.sender, address(this), price), "transfer failed!");
-
+    // @dev --- contract(this) must have APPROVEd uniswap to use 'token0' before v-this-v can work
+    function uniswapConvertToBase(uint256 amountIn) public returns(bool){
         // tax token swap payment process
-        uint256 amountIn = price * erc20Fee / 10000;
         address[] memory path = new address[](2);
         path[0] = erc20LP.token0();
         path[1] = erc20LP.token1();
         oracleData[] = erc20LP.getReserves();
         amountOutMinBeforeSlip = (oracleData[0] / oracleData[1] * amountIn);
         amountOutMin = amountOutMinBeforeSlip - (amountOutMinBeforeSlip * 30/1000);
-        // contract(this) must have APPROVEd uniswap to use 'token0' before v-this-v can work
         require(UniswapV2Router02.swapExactTokensForETH(amountIn, amountOutMin, path, address(this), block.timestamp), "transfer failed!");
+        return true;
+    }
 
+    // @dev --- all USERS must APPROVE lotto contract to use erc20 before v-this-v can work
+    function guess(string calldata answer) public{
+        uint256 price = currentPrice();
+
+        require(IERC20(erc20contract).transferFrom(msg.sender, address(this), price), "transfer failed!");
+
+        // convert tax to LP base
+        uint256 tax = price * erc20Fee / 10000;
+        require(uniswapConvertToBase(tax), "Tax Conversion failed");
 
         /* --- quiz stuff which I can figure out later ---
         // emit the guess so that it can be recorded on the frontend (and help future guesses)
